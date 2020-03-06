@@ -26,6 +26,17 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/:id/actions", (req, res) => {
+  projects
+    .getProjectActions(req.params.id)
+    .then(action => {
+      res.status(200).json(action);
+    })
+    .catch(({ name, code, message, stack }) => {
+      res.status(500).json({ name, code, message, stack });
+    });
+});
+
 router.post("/", (req, res) => {
   const body = req.body;
   projects
